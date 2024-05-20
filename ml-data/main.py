@@ -1,10 +1,14 @@
+import time
 import json
+
 with open("./data/test.json") as f:
     data = json.loads(f.read())
     
 unmatched_cnt = 0
 cnt = 0
 res = []
+st = time.time()
+
 for d in data:
     prompt: str = d['input']
     origin_id: int = d['id']
@@ -30,5 +34,8 @@ for d in data:
         })
         cnt += 1
 
+cost_time = time.time() - st
+print("cost time:", cost_time)
+print("count of pairs:", len(res))
 with open("./res.json", 'w+', encoding="utf8") as f:
     json.dump(res, f, ensure_ascii=False, indent=2)
